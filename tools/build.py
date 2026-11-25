@@ -6,7 +6,7 @@ import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 ORG = "https://github.com/waranty-void"
-HUB = "https://waranty-void.github.io/"
+HUB = "https://wvoid.coal.marketing/"
 CHAT = "https://discord.gg/CPjRJzZYpf"
 BOARD = "https://client.coal.marketing/warranty-void/kanban"
 DEMO = "https://perlytiara.github.io/Count23/"
@@ -91,7 +91,7 @@ def build(out, companion=False):
     docs=head(link("../","Warranty Void")+" / Engineering","Engineering docs","Source, build instructions, and verified behaviour for each published project.") + '<div class="wrap docs-index"><a class="row" href="count23/"><div><strong>Count23</strong><span>Static React app, countdown timing and shareable proposal state.</span></div><span class="action">Read the guide</span></a></div>'
     write("engineering/index.html","Engineering · Warranty Void","Technical documentation for published projects.","Engineering",docs,"../assets/","../")
     community=head(link("../","Warranty Void")+" / Community","Join the workshop","Bring an idea, document an experiment, or help someone test a release.") + f'''<div class="wrap"><div class="reading"><p>{link(CHAT,"Join Warranty Void on Discord","button")}</p><h2>From the first sketch</h2><p>Use <strong>idea-drop</strong> for a question or sketch. Start one thread per prototype in <strong>build-logs</strong>. When others can try it, post the version, source or build files, licence, and instructions in <strong>releases</strong>.</p>
-<h2>Connect GitHub in Discord</h2><ol><li>Open Discord’s <strong>User Settings → Connections</strong>.</li><li>Select <strong>GitHub</strong> and authorize your own account on GitHub.</li><li>Return to Warranty Void. Open the server menu and choose <strong>Linked Roles</strong> for available roles. You can also share your GitHub username with an organizer in bench chat if you want to join a project.</li></ol><p>{link(LINKED,"Discord’s account-connection guide")} · {link(ORG,"Warranty Void on GitHub")}</p>
+<h2>Connect GitHub in Discord</h2><ol><li>Open Discord’s <strong>User Settings → Connections</strong>.</li><li>Select <strong>GitHub</strong> and authorize your own account on GitHub.</li><li>Return to Warranty Void. Open the server menu and choose <strong>Linked Roles → GitHub Connected</strong> to claim the optional badge. Discord checks that you connected a GitHub account.</li><li>To work on a private project, share your GitHub username with an organizer in <strong>bench-chat</strong>. The organizer sends a separate invitation on GitHub.</li></ol><p>{link(LINKED,"Discord’s account-connection guide")} · {link(ORG,"Warranty Void on GitHub")}</p>
 <h2>Contribute or publish</h2><p>Anyone can explore a public demo. Check the project’s licence before reusing its code or assets. You can open an issue or propose a change on GitHub. An organizer can invite collaborators to a private project individually.</p>
 <h2>Member Kanban</h2><p>Invited collaborators use the signed-in board to track work. Releases appear in the public gallery when their project pages are published.</p>{link(BOARD,"Open the member Kanban","button light")}</div></div>'''
     write("community/index.html","Community · Warranty Void","Join the Discord, connect a GitHub account and contribute.","Community",community,"../assets/","../")
