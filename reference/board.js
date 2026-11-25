@@ -52,14 +52,26 @@ function pinHead(x,y) {
   ctx.beginPath();ctx.arc(x,y+2,6,0,Math.PI*2);ctx.fillStyle='#70402f';ctx.fill();
   ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);ctx.fillStyle='#e56543';ctx.fill();
 }
+function decoded(src) {
+  if (bitmap.has(src)) return bitmap.get(src);
+  const entry = {image:null, ready:null};
+  bitmap.set(src,entry);
+  entry.ready = (async () => {
+    const comma = src.indexOf(','), binary = atob(src.slice(comma+1));
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    const blob = new Blob([bytes], {type:src.slice(5,src.indexOf(';'))});
+    entry.image = await createImageBitmap(blob);
+  })().catch(() => { status('One photo could not be decoded. Replace it before exporting.'); })
+    .finally(() => draw());
+  return entry;
+}
 function paint(o) {
   if(o.type==='photo'||o.type==='note'){
     ctx.save(); ctx.shadowColor='#3f301d66';ctx.shadowBlur=11;ctx.shadowOffsetY=5;
     ctx.fillStyle=o.type==='photo'?'#fffdf4':'#fff0ac';ctx.fillRect(o.x-5,o.y-5,o.w+10,o.h+10);ctx.restore();
     if(o.type==='photo'){
-      let im=bitmap.get(o.src);
-      if(!im){im=new Image();bitmap.set(o.src,im);im.onload=()=>draw();im.src=o.src;}
-      if(im.complete&&im.naturalWidth)ctx.drawImage(im,o.x,o.y,o.w,o.h);
+      const im=decoded(o.src).image;
+      if(im)ctx.drawImage(im,o.x,o.y,o.w,o.h);
     } else {
       const font=Math.min(40,Math.max(18,o.w/12));ctx.fillStyle='#332f23';ctx.font='600 '+font+'px system-ui';
       const words=o.text.split(/\s+/);let s='',y=o.y+font+14;
@@ -94,7 +106,7 @@ function draw(showSelection=true) {
   get('empty').hidden=!!board.objects.length;
   get('undo').disabled=!history.length;get('redo').disabled=!future.length;get('remove').disabled=!o;
   for(const id of ['bigger','smaller'])get(id).disabled=!o||!['photo','note'].includes(o.type);
-  get('download').disabled=!board.objects.length;get('copy').disabled=!board.note.trim()&&!board.title.trim();
+  get('download').disabled=!board.objects.length||board.objects.some(o=>o.type==='photo'&&!decoded(o.src).image);get('copy').disabled=!board.note.trim()&&!board.title.trim();
   get('board-title').textContent=board.title.trim()||'Untitled board';
 }
 function syncFields(){get('title').value=board.title;get('note').value=board.note;selected=-1;gesture=null;draw();}
