@@ -1,6 +1,6 @@
 # Warranty Void
 
-[Project gallery](https://waranty-void.github.io/) · [Engineering docs](https://waranty-void.github.io/engineering/) · [Join the workshop](https://discord.gg/CPjRJzZYpf)
+[Project gallery](https://wvoid.coal.marketing/) · [Engineering docs](https://wvoid.coal.marketing/engineering/) · [GitHub Pages mirror](https://waranty-void.github.io/) · [Join the workshop](https://discord.gg/CPjRJzZYpf)
 
 This is the public site for the independent Warranty Void project collective. The gallery carries individually published projects. Work in progress is managed in the membership-gated Kanban.
 
