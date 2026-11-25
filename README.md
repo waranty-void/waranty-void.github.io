@@ -10,6 +10,10 @@ Run `python3 tools/build.py` to regenerate the static pages, then `python3 -m ht
 
 Each project has a working product view and an engineering guide. New releases should link the real demonstration, authoritative source and revision, tested setup, known gaps, credits and reuse terms. Send changes by pull request. Leave private planning files outside this repository.
 
+## Publish a project
+
+Run the builder and commit the generated pages with the source. Merge the approved release to this repository’s main branch. GitHub Pages publishes it, and the project address at wvoid.coal.marketing serves that deployment. Individual public project repositories can use their own Pages sites under the organization as Count23 does. Each private prototype has a separate repository and downloadable viewer.
+
 ## Reuse and credits
 
 The original Warranty Void website code and field-guide text use the MIT licence. The Warranty Void name and logo identify the collective. The Count23 screenshots show the upstream application and its interface. That application's code, dependencies and depicted interface retain their existing terms. The upstream project has no declared application licence at the documented revision.
