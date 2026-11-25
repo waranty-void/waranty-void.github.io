@@ -7,7 +7,6 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 ORG = "https://github.com/waranty-void"
 HUB = "https://wvoid.coal.marketing/"
-CHAT = "https://discord.gg/CPjRJzZYpf"
 BOARD = "https://client.coal.marketing/warranty-void/kanban"
 DEMO = "https://perlytiara.github.io/Count23/"
 SOURCE = "https://github.com/perlytiara/Count23/tree/605a29b4d150bc3d6837b5eee94eaa14a25b9581"
@@ -27,9 +26,9 @@ def template(title, desc, section, content, assets, home):
 <title>{escape(title)}</title><meta name="description" content="{escape(desc, quote=True)}"><meta name="theme-color" content="#102c2e">
 <link rel="icon" href="{assets}warranty-void.webp"><link rel="stylesheet" href="{assets}site.css"><script defer src="{assets}demo.js"></script></head>
 <body><a href="#main" class="skip">Skip to content</a><header class="top"><div class="wrap bar"><a class="brand" href="{home}"><img src="{assets}warranty-void.webp" width="38" height="38" alt="">Warranty Void</a>
-<nav class="nav" aria-label="Main navigation">{menu}<a class="join" href="{CHAT}">Join Discord</a></nav></div></header>
+<nav class="nav" aria-label="Main navigation">{menu}</nav></div></header>
 <main id="main">{content}</main><footer class="foot"><div class="wrap"><p>Warranty Void is an independent project collective. Coal Marketing provides the web address and hosts the Kanban.</p>
-<nav aria-label="Footer">{link(ORG,"GitHub")}{link(CHAT,"Discord")}{link(BOARD,"Member Kanban")}</nav></div></footer></body></html>'''
+<nav aria-label="Footer">{link(ORG,"GitHub")}{link(BOARD,"Member Kanban")}</nav></div></footer></body></html>'''
 
 def head(crumb, title, lead):
     return f'<div class="wrap interior"><p class="crumb">{crumb}</p><h1>{title}</h1><p class="lede">{lead}</p></div>'
@@ -83,18 +82,18 @@ def build(out, companion=False):
 <a class="feature-img" href="projects/count23/" aria-label="Open the Count23 demonstration"><img src="assets/count23-screen.webp" width="1740" height="1050" alt="{ALT}"></a>
 <div class="feature-copy"><p class="eyebrow">Browser app</p><h3>Count23</h3><p>A countdown you can send to someone. Pick a time, share it, and let them suggest a better one.</p>
 <div class="links">{link("projects/count23/","Try Count23","button")}{link("engineering/count23/","Engineering notes","textlink")}</div></div></article></section>
-<div class="wrap actions"><section><h2>Bring an idea</h2><p>Start with a sketch or a problem in the Discord. Keep prototype photos and test results together in a build log.</p>{link("community/","How to join the workshop","textlink")}</section>
+<div class="wrap actions"><section><h2>Bring an idea</h2><p>Open an issue on a released project to propose a change or share something you built.</p>{link("community/","How to contribute","textlink")}</section>
 <section><h2>Build on a release</h2><p>Engineering notes link to the source, the tested build, and the work still open for contributors.</p>{link("engineering/","Browse engineering docs","textlink")}</section></div>'''
     write("index.html","Warranty Void · Projects","Independent inventions, working demos and engineering notes.","Projects",feature,"assets/","./")
     write("projects/count23/index.html","Count23 · Warranty Void","Run Count23 and share a proposed time.","Projects",product("./","../../engineering/count23/","../../assets/","../../"),"../../assets/","../../")
     write("engineering/count23/index.html","Count23 engineering · Warranty Void","Build and understand Count23.","Engineering",engineering("../../projects/count23/","./","../../assets/","../../"),"../../assets/","../../")
     docs=head(link("../","Warranty Void")+" / Engineering","Engineering docs","Source, build instructions, and verified behaviour for each published project.") + '<div class="wrap docs-index"><a class="row" href="count23/"><div><strong>Count23</strong><span>Static React app, countdown timing and shareable proposal state.</span></div><span class="action">Read the guide</span></a></div>'
     write("engineering/index.html","Engineering · Warranty Void","Technical documentation for published projects.","Engineering",docs,"../assets/","../")
-    community=head(link("../","Warranty Void")+" / Community","Join the workshop","Bring an idea, document an experiment, or help someone test a release.") + f'''<div class="wrap"><div class="reading"><p>{link(CHAT,"Join Warranty Void on Discord","button")}</p><h2>From the first sketch</h2><p>Use <strong>idea-drop</strong> for a question or sketch. Start one thread per prototype in <strong>build-logs</strong>. When others can try it, post the version, source or build files, licence, and instructions in <strong>releases</strong>.</p>
-<h2>Connect GitHub in Discord</h2><ol><li>Open Discord’s <strong>User Settings → Connections</strong>.</li><li>Select <strong>GitHub</strong> and authorize your own account on GitHub.</li><li>Return to Warranty Void. Open the server menu and choose <strong>Linked Roles → GitHub Connected</strong> to claim the optional badge. Discord checks that you connected a GitHub account.</li><li>To work on a private project, share your GitHub username with an organizer in <strong>bench-chat</strong>. The organizer sends a separate invitation on GitHub.</li></ol><p>{link(LINKED,"Discord’s account-connection guide")} · {link(ORG,"Warranty Void on GitHub")}</p>
+    community=head(link("../","Warranty Void")+" / Community","Build with us","Bring an idea, document an experiment, or help someone test a release.") + f'''<div class="wrap"><div class="reading"><p>The Discord workshop is invite-only. If you already know a member, ask the organizer privately for an invitation. You can contribute to public projects on GitHub.</p><h2>From the first sketch</h2><p>Use <strong>idea-drop</strong> for a question or sketch. Start one thread per prototype in <strong>build-logs</strong>. When others can try it, post the version, source or build files, licence, and instructions in <strong>releases</strong>.</p>
+<h2>Connect GitHub in Discord</h2><ol><li>Open Discord’s <strong>User Settings → Connections</strong>.</li><li>Select <strong>GitHub</strong> and authorize your own account on GitHub.</li><li>Return to Warranty Void. Open the server menu and choose <strong>Linked Roles → GitHub Connected</strong> to claim the optional badge. Discord checks that you connected a GitHub account.</li><li>For a private project, use <strong>/github-link</strong> in the server. The organizer assigns access per project. Accept the invitation on GitHub and use <strong>/my-projects</strong> to find your work.</li></ol><p>{link(LINKED,"Discord’s account-connection guide")} · {link(ORG,"Warranty Void on GitHub")}</p>
 <h2>Contribute or publish</h2><p>Anyone can explore a public demo. Check the project’s licence before reusing its code or assets. You can open an issue or propose a change on GitHub. An organizer can invite collaborators to a private project individually.</p>
 <h2>Member Kanban</h2><p>Invited collaborators use the signed-in board to track work. Releases appear in the public gallery when their project pages are published.</p>{link(BOARD,"Open the member Kanban","button light")}</div></div>'''
-    write("community/index.html","Community · Warranty Void","Join the Discord, connect a GitHub account and contribute.","Community",community,"../assets/","../")
+    write("community/index.html","Community · Warranty Void","Contribute to public projects and learn how invited members build together.","Community",community,"../assets/","../")
 
 if __name__ == "__main__":
     parser=argparse.ArgumentParser()
