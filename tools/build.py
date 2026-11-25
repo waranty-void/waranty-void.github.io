@@ -12,7 +12,8 @@ DEMO = "https://perlytiara.github.io/Count23/"
 SOURCE = "https://github.com/perlytiara/Count23/tree/605a29b4d150bc3d6837b5eee94eaa14a25b9581"
 BLOB = SOURCE.replace("/tree/", "/blob/")
 FORK = ORG + "/count23"
-LINKED = "https://support.discord.com/hc/en-us/articles/8063233404823-Connections-Linked-Roles-Community-Members"
+ROADSTER = "https://libertygrage.github.io/roadster-x/"
+TANDEM = "https://libertygrage.github.io/tandem-t6/"
 ALT = "Count23 running a sample countdown, with its timer ring and sharing controls."
 
 def link(url, label, cls=""):
@@ -24,8 +25,8 @@ def template(title, desc, section, content, assets, home):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)}</title><meta name="description" content="{escape(desc, quote=True)}"><meta name="theme-color" content="#102c2e">
-<link rel="icon" href="{assets}warranty-void.webp"><link rel="stylesheet" href="{assets}site.css"><script defer src="{assets}demo.js"></script></head>
-<body><a href="#main" class="skip">Skip to content</a><header class="top"><div class="wrap bar"><a class="brand" href="{home}"><img src="{assets}warranty-void.webp" width="38" height="38" alt="">Warranty Void</a>
+<link rel="icon" type="image/svg+xml" href="{assets}warranty-w.svg"><link rel="stylesheet" href="{assets}site.css?v=workshop-2"><script defer src="{assets}demo.js"></script></head>
+<body><a href="#main" class="skip">Skip to content</a><header class="top"><div class="wrap bar"><a class="brand" href="{home}"><img src="{assets}warranty-w.svg" width="44" height="44" alt="">Warranty Void</a>
 <nav class="nav" aria-label="Main navigation">{menu}</nav></div></header>
 <main id="main">{content}</main><footer class="foot"><div class="wrap"><p>Warranty Void is an independent project collective. Coal Marketing provides the web address and hosts the Kanban.</p>
 <nav aria-label="Footer">{link(ORG,"GitHub")}{link(BOARD,"Member Kanban")}</nav></div></footer></body></html>'''
@@ -66,7 +67,7 @@ def build(out, companion=False):
     out = out.resolve()
     if companion:
         (out / "assets").mkdir(parents=True,exist_ok=True)
-        for name in ["site.css","demo.js","warranty-void.webp","count23-wide.webp","count23-setup.webp"]:
+        for name in ["site.css","demo.js","warranty-w.svg","count23-wide.webp","count23-setup.webp"]:
             shutil.copyfile(ROOT / "assets" / name, out / "assets" / name)
     def write(path, name, desc, section, body, assets, home):
         dest=out/path
@@ -77,20 +78,23 @@ def build(out, companion=False):
         write("engineering/index.html","Count23 engineering · Warranty Void","Build and understand Count23.","Engineering",engineering("../","./","../assets/",HUB),"../assets/",HUB)
         (out/".nojekyll").touch()
         return
-    feature = f'''<section class="intro"><div class="wrap intro-inner"><div><h1>Warranty <span>Void</span></h1><p>An independent workshop for people who take things apart, build prototypes, and share what worked.</p></div><div class="logo-plate"><img src="assets/warranty-void.webp" width="512" height="512" alt="The Warranty Void orange folded-metal spark"></div></div></section>
-<section class="wrap block" id="projects"><div class="section-top"><h2>Published projects</h2></div><article class="feature">
-<a class="feature-img" href="projects/count23/" aria-label="Open the Count23 demonstration"><img src="assets/count23-screen.webp" width="1740" height="1050" alt="{ALT}"></a>
-<div class="feature-copy"><p class="eyebrow">Browser app</p><h3>Count23</h3><p>A countdown you can send to someone. Pick a time, share it, and let them suggest a better one.</p>
-<div class="links">{link("projects/count23/","Try Count23","button")}{link("engineering/count23/","Engineering notes","textlink")}</div></div></article></section>
+    feature = f'''<section class="intro"><div class="wrap showcase-hero"><div class="hero-copy"><h1>Warranty <span>Void</span></h1><p>A workshop for prototypes you can try. Pick a project, see how it was built and bring back a test of your own.</p><a class="button orange" href="#projects">Explore the projects <span aria-hidden="true">↓</span></a></div>
+<figure class="hero-photo"><a href="{ROADSTER}"><img src="assets/roadster-hover.webp" width="1440" height="810" fetchpriority="high" alt="Roadster X hovering beside the airport control tower in GTA IV."></a><figcaption><a href="{ROADSTER}">Roadster X · Airport hover test <span aria-hidden="true">↗</span></a><span>Liberty Garage / GTA IV</span></figcaption></figure></div></section>
+<section class="wrap block" id="projects"><div class="section-top"><h2>Published projects</h2></div><div class="release-grid">
+<article class="release-card"><a href="{ROADSTER}"><img src="assets/roadster-apron.webp" width="960" height="540" alt="The Roadster X on the airport apron in GTA IV."></a><div><p class="eyebrow">Liberty Garage · GTA IV</p><h3>Roadster X</h3><p>Take a hover car from the runway to the rooftops. The guide includes flight controls and in-game tests.</p>{link(ROADSTER,"Open the player guide ↗","textlink")}</div></article>
+<article class="release-card"><a href="{TANDEM}"><img src="assets/tandem-width.webp" width="960" height="540" alt="The narrow Tandem T6 parked beside a stock Admiral for a width comparison."></a><div><p class="eyebrow">Liberty Garage · GTA IV</p><h3>Tandem T6</h3><p>Two seats in a line and a body under a metre wide. See it beside a stock Admiral and out in city traffic.</p>{link(TANDEM,"Open the player guide ↗","textlink")}</div></article>
+<article class="release-card"><a href="projects/count23/"><img src="assets/count23-screen.webp" width="1740" height="1050" alt="{ALT}"></a><div><p class="eyebrow">Browser app</p><h3>Count23</h3><p>Pick a time, send the countdown and let someone suggest a better one.</p><p class="card-links">{link("projects/count23/","Try Count23","textlink")}{link("engineering/count23/","Engineering notes","textlink")}</p></div></article>
+</div></section>
 <div class="wrap actions"><section><h2>Bring an idea</h2><p>Open an issue on a released project to propose a change or share something you built.</p>{link("community/","How to contribute","textlink")}</section>
 <section><h2>Build on a release</h2><p>Engineering notes link to the source, the tested build, and the work still open for contributors.</p>{link("engineering/","Browse engineering docs","textlink")}</section></div>'''
     write("index.html","Warranty Void · Projects","Independent inventions, working demos and engineering notes.","Projects",feature,"assets/","./")
     write("projects/count23/index.html","Count23 · Warranty Void","Run Count23 and share a proposed time.","Projects",product("./","../../engineering/count23/","../../assets/","../../"),"../../assets/","../../")
     write("engineering/count23/index.html","Count23 engineering · Warranty Void","Build and understand Count23.","Engineering",engineering("../../projects/count23/","./","../../assets/","../../"),"../../assets/","../../")
     docs=head(link("../","Warranty Void")+" / Engineering","Engineering docs","Source, build instructions, and verified behaviour for each published project.") + '<div class="wrap docs-index"><a class="row" href="count23/"><div><strong>Count23</strong><span>Static React app, countdown timing and shareable proposal state.</span></div><span class="action">Read the guide</span></a></div>'
+    docs += f'<section class="wrap reading"><h2>Liberty Garage player guides</h2><p>{link(ROADSTER,"Roadster X")} covers jump, hover and flight controls. {link(TANDEM,"Tandem T6")} documents the narrow-body car with side-by-side tests. Both guides include original GTA IV screenshots.</p></section>'
     write("engineering/index.html","Engineering · Warranty Void","Technical documentation for published projects.","Engineering",docs,"../assets/","../")
-    community=head(link("../","Warranty Void")+" / Community","Build with us","Bring an idea, document an experiment, or help someone test a release.") + f'''<div class="wrap"><div class="reading"><p>The Discord workshop is invite-only. If you already know a member, ask the organizer privately for an invitation. You can contribute to public projects on GitHub.</p><h2>From the first sketch</h2><p>Use <strong>idea-drop</strong> for a question or sketch. Start one thread per prototype in <strong>build-logs</strong>. When others can try it, post the version, source or build files, licence, and instructions in <strong>releases</strong>.</p>
-<h2>Connect GitHub in Discord</h2><ol><li>Open Discord’s <strong>User Settings → Connections</strong>.</li><li>Select <strong>GitHub</strong> and authorize your own account on GitHub.</li><li>Return to Warranty Void. Open the server menu and choose <strong>Linked Roles → GitHub Connected</strong> to claim the optional badge. Discord checks that you connected a GitHub account.</li><li>For a private project, use <strong>/github-link</strong> in the server. The organizer assigns access per project. Accept the invitation on GitHub and use <strong>/my-projects</strong> to find your work.</li></ol><p>{link(LINKED,"Discord’s account-connection guide")} · {link(ORG,"Warranty Void on GitHub")}</p>
+    community=head(link("../","Warranty Void")+" / Community","Build with us","Bring an idea, document an experiment, or help someone test a release.") + f'''<div class="wrap"><div class="reading"><p>The Discord workshop is invite-only. If you already know a member, ask the organizer privately for an invitation. You can contribute to public projects on GitHub.</p><h2>From the first sketch</h2><p>Bring a question or sketch to <strong>Idea Drop</strong>. Start a thread in <strong>Product Showcase</strong> with a photo, a prototype or something another member can test. Organizers choose what goes into <strong>Releases</strong>.</p>
+<h2>Connect your GitHub account</h2><ol><li>Invited members can open <strong>My desk</strong> in Discord, or type <code>!desk</code>.</li><li>Choose <strong>Connect GitHub</strong> and authorize your own account on GitHub.</li><li>After an organizer assigns a project, choose <strong>My invitations</strong> and accept its invitation on GitHub. Watch gives read access. Build also lets you contribute.</li><li>Open the project card for <strong>Review changes</strong> and <strong>Release notes</strong>. To find a room, choose <strong>Search projects</strong> and type its name.</li></ol><p>{link(ORG,"Warranty Void on GitHub")}</p>
 <h2>Contribute or publish</h2><p>Anyone can explore a public demo. Check the project’s licence before reusing its code or assets. You can open an issue or propose a change on GitHub. An organizer can invite collaborators to a private project individually.</p>
 <h2>Member Kanban</h2><p>Invited collaborators use the signed-in board to track work. Releases appear in the public gallery when their project pages are published.</p>{link(BOARD,"Open the member Kanban","button light")}</div></div>'''
     write("community/index.html","Community · Warranty Void","Contribute to public projects and learn how invited members build together.","Community",community,"../assets/","../")
